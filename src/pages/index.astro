@@ -1,0 +1,154 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSection from "../components/HeroSection.astro";
+import FirstVisitCard from "../components/FirstVisitCard.astro";
+import SermonCard from "../components/SermonCard.astro";
+import YouTubeEmbed from "../components/YouTubeEmbed.astro";
+import ScriptureHighlight from "../components/ScriptureHighlight.astro";
+import StaleBanner from "../components/StaleBanner.astro";
+import churchData from "../data/church.json";
+import { getCollection } from "astro:content";
+
+const sermons = await getCollection("sermons");
+const sortedSermons = sermons.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const latestSermon = sortedSermons[0] ?? null;
+
+const bulletins = await getCollection("bulletins");
+const sortedBulletins = bulletins.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const latestBulletin = sortedBulletins[0] ?? null;
+
+const latestVideo = churchData.youtube_videos?.[0] ?? null;
+---
+
+<BaseLayout>
+  <!-- Block 1: Hero — Rising (curiosity) -->
+  <HeroSection
+    title="반갑습니다, 여기는 광주새서광교회예요"
+    subtitle="일요일 아침, 함께 모여 예배드리는 작은 공동체"
+  />
+
+  <!-- Block 2: 이번 주의 말씀 — Rising (curiosity) -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">이번 주의 말씀</h2>
+      <ScriptureHighlight
+        text="여호와를 기뻐하라 그가 네 마음의 소원을 네게 이루어 주시리로다"
+        reference="시편 37:4"
+      />
+      {latestVideo && (
+        <div class="sermon-video-wrap">
+          <YouTubeEmbed videoId={latestVideo.videoId} />
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Block 3: 처음 오시나요? — CLIMAX (highest warmth) -->
+  <section class="section section-warm">
+    <div class="container">
+      <FirstVisitCard />
+    </div>
+  </section>
+
+  <!-- Block 4: 이번 주 소식 — Resolution (confidence) -->
+  <section class="section">
+    <div class="container">
+      <StaleBanner stale={!latestBulletin} />
+      <h2 class="section-title">이번 주 소식</h2>
+      {latestBulletin ? (
+        <div class="bulletin-preview card">
+          <time class="bulletin-date" datetime={latestBulletin.data.date}>{latestBulletin.data.date}</time>
+          <h3 class="bulletin-title-text">{latestBulletin.data.title}</h3>
+          {latestBulletin.data.excerpt && <p class="bulletin-excerpt-text">{latestBulletin.data.excerpt}</p>}
+          <a href="/bulletin" class="more-link">주보 전체 보기 →</a>
+        </div>
+      ) : (
+        <p class="empty-message">곧 이번 주 소식을 전해드릴게요. 조금만 기다려 주세요.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Block 5: 최근 설교 — Resolution (confidence) -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">최근 설교</h2>
+      {latestSermon ? (
+        <div class="sermon-grid">
+          <SermonCard sermon={{
+            title: latestSermon.data.title,
+            date: latestSermon.data.date,
+            videoId: latestSermon.data.videoId,
+            scripture: latestSermon.data.scripture,
+            summary: latestSermon.data.summary,
+          }} />
+        </div>
+      ) : (
+        <p class="empty-message">설교 영상을 준비하고 있어요. 유튜브 채널에서도 만나볼 수 있어요.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-warm {
+    background-color: rgba(212, 168, 67, 0.04);
+  }
+
+  .section-title {
+    font-size: var(--font-size-h2);
+    color: var(--color-primary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .sermon-video-wrap {
+    margin-top: var(--space-lg);
+  }
+
+  .bulletin-preview {
+    padding: var(--card-padding);
+  }
+
+  .bulletin-date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+
+  .bulletin-title-text {
+    font-size: var(--font-size-h3);
+    color: var(--color-primary);
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-sm);
+  }
+
+  .bulletin-excerpt-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: var(--line-height-base);
+  }
+
+  .more-link {
+    display: inline-block;
+    margin-top: var(--space-md);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .more-link:hover {
+    color: var(--color-accent);
+  }
+
+  .empty-message {
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  .sermon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-lg);
+  }
+</style>

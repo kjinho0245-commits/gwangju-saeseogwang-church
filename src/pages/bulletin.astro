@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BulletinCard from "../components/BulletinCard.astro";
+import { getCollection } from "astro:content";
+
+const bulletins = await getCollection("bulletins");
+const sortedBulletins = bulletins.sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<BaseLayout title="주보">
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-title">주보</h1>
+      <p class="page-subtitle">함께 나누는 이번 주 소식</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="section-intro">
+        매주 나누는 교회 소식을 이곳에 모아두었어요.
+        기도 제목, 행사 안내, 감사 나눔까지 — 우리 교회의 한 주가 담겨 있어요.
+        혹시 지난 주보를 놓치셨더라도 여기서 확인하실 수 있으니 걱정 마세요.
+      </p>
+
+      {sortedBulletins.length > 0 ? (
+        <div class="bulletin-list card">
+          {sortedBulletins.map((bulletin) => (
+            <BulletinCard bulletin={{
+              title: bulletin.data.title,
+              date: bulletin.data.date,
+              excerpt: bulletin.data.excerpt,
+            }} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state card">
+          <p class="empty-title">아직 등록된 주보가 없어요</p>
+          <p class="empty-desc">
+            주보가 등록되면 이곳에서 확인하실 수 있어요.
+            교회 소식이 궁금하시면 언제든 전화 주세요.
+          </p>
+          <a href="tel:0622251002" class="phone-link">062-225-1002</a>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    padding: var(--space-2xl) 0;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-h3);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-intro {
+    line-height: var(--line-height-base);
+    color: var(--color-text);
+    margin-bottom: var(--space-xl);
+    max-width: 640px;
+  }
+
+  .bulletin-list {
+    padding: var(--space-sm) var(--card-padding);
+  }
+
+  .empty-state {
+    padding: var(--space-2xl);
+    text-align: center;
+  }
+
+  .empty-title {
+    font-size: var(--font-size-h3);
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .empty-desc {
+    color: var(--color-text-light);
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-md);
+  }
+
+  .phone-link {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: var(--font-size-h3);
+  }
+</style>

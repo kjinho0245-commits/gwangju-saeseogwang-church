@@ -1,0 +1,36 @@
+---
+interface Props {
+  text: string;
+  reference: string;
+}
+
+const { text, reference } = Astro.props;
+---
+
+<blockquote class="scripture-highlight">
+  <p class="scripture-text">{text}</p>
+  <cite class="scripture-reference">— {reference}</cite>
+</blockquote>
+
+<style>
+  .scripture-highlight {
+    border-left: var(--scripture-border);
+    padding: var(--scripture-padding);
+    background-color: rgba(212, 168, 67, 0.06);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  }
+
+  .scripture-text {
+    font-weight: var(--scripture-font-weight);
+    font-size: var(--scripture-font-size);
+    color: var(--color-text);
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-sm);
+  }
+
+  .scripture-reference {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    font-style: normal;
+  }
+</style>

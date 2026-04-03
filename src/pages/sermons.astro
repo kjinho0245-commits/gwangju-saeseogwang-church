@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SermonCard from "../components/SermonCard.astro";
+import { getCollection } from "astro:content";
+
+const sermons = await getCollection("sermons");
+const sortedSermons = sermons.sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<BaseLayout title="설교">
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-title">설교</h1>
+      <p class="page-subtitle">예배 때 들었던 말씀, 다시 한번 천천히 되새겨 보세요</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="section-intro">
+        주일에 나눈 말씀을 영상으로 다시 만날 수 있어요.
+        바쁜 한 주를 보내다가도, 잠깐 멈추고 말씀 앞에 앉아보는 시간이 되길 바라요.
+        놓친 주일이 있더라도 괜찮아요 — 말씀은 여기서 기다리고 있거든요.
+      </p>
+
+      {sortedSermons.length > 0 ? (
+        <div class="sermon-grid">
+          {sortedSermons.map((sermon) => (
+            <SermonCard sermon={{
+              title: sermon.data.title,
+              date: sermon.data.date,
+              videoId: sermon.data.videoId,
+              scripture: sermon.data.scripture,
+              summary: sermon.data.summary,
+            }} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state card">
+          <p class="empty-title">아직 등록된 설교가 없어요</p>
+          <p class="empty-desc">
+            설교 영상이 준비되면 이곳에서 만나볼 수 있어요.
+            유튜브 채널에서도 말씀을 들으실 수 있으니 확인해 보세요.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    padding: var(--space-2xl) 0;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-h3);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-intro {
+    line-height: var(--line-height-base);
+    color: var(--color-text);
+    margin-bottom: var(--space-xl);
+    max-width: 640px;
+  }
+
+  .sermon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .empty-state {
+    padding: var(--space-2xl);
+    text-align: center;
+  }
+
+  .empty-title {
+    font-size: var(--font-size-h3);
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .empty-desc {
+    color: var(--color-text-light);
+    line-height: var(--line-height-base);
+  }
+</style>

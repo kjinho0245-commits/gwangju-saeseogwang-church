@@ -1,0 +1,26 @@
+---
+interface Props {
+  videoId: string;
+}
+
+const { videoId } = Astro.props;
+const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+---
+
+<div class="youtube-embed">
+  <iframe
+    src={embedUrl}
+    title="YouTube 동영상"
+    loading="lazy"
+    allowfullscreen
+  ></iframe>
+</div>
+
+<style>
+  .youtube-embed iframe {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    border: none;
+    border-radius: var(--radius-card);
+  }
+</style>

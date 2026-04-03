@@ -1,0 +1,50 @@
+---
+interface Props {
+  bulletin: {
+    title: string;
+    date: string;
+    excerpt?: string;
+  };
+}
+
+const { bulletin } = Astro.props;
+---
+
+<article class="bulletin-item">
+  <time class="bulletin-date" datetime={bulletin.date}>{bulletin.date}</time>
+  <h3 class="bulletin-title">{bulletin.title}</h3>
+  {bulletin.excerpt && <p class="bulletin-excerpt">{bulletin.excerpt}</p>}
+</article>
+
+<style>
+  .bulletin-item {
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .bulletin-item:last-child {
+    border-bottom: none;
+  }
+
+  .bulletin-date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+
+  .bulletin-title {
+    font-size: var(--font-size-h3);
+    color: var(--color-primary);
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  .bulletin-excerpt {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: var(--line-height-base);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+  }
+</style>

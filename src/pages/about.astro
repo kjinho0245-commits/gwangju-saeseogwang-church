@@ -1,0 +1,200 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import churchData from "../data/church.json";
+---
+
+<BaseLayout title="교회소개">
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-title">광주새서광교회를 소개해요</h1>
+      <p class="page-subtitle">작은 교회지만, 서로의 이름을 부르며 기도하는 곳이에요</p>
+    </div>
+  </section>
+
+  <!-- 목사님 인사 — 따뜻하고 개인적인 톤 -->
+  <section class="section">
+    <div class="container">
+      <div class="pastor-greeting card">
+        <h2 class="greeting-heading">김진호 목사 인사말</h2>
+        <div class="greeting-body">
+          <p>
+            안녕하세요, 김진호 목사예요.
+          </p>
+          <p>
+            교회를 찾는 마음이 늘 편하지만은 않다는 걸 알고 있어요.
+            낯선 곳에 발을 들이는 건 누구에게나 용기가 필요하거든요.
+          </p>
+          <p>
+            광주새서광교회는 크지 않아요. 하지만 그래서 좋은 점도 있어요.
+            서로 이름을 알고, 한 주간 어떻게 지냈는지 물어볼 수 있는 사이.
+            예배 후 함께 밥을 먹으며 웃을 수 있는 사이.
+            그런 관계 속에서 하나님을 만나는 곳이에요.
+          </p>
+          <p>
+            완벽한 사람들의 모임이 아니라, 서로의 부족함을 안고 함께 걸어가는 공동체.
+            여러분도 그 길 위에 함께하면 좋겠어요.
+          </p>
+          <p class="greeting-sign">
+            김진호 목사 드림
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 교회 이야기 -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">우리 교회 이야기</h2>
+      <div class="story-content">
+        <p>
+          광주 동구 백서로에 자리 잡은 작은 교회예요.
+          주일이면 성도들이 모여 찬양하고, 말씀을 듣고, 서로를 위해 기도해요.
+        </p>
+        <p>
+          화려한 프로그램보다 한 사람 한 사람과의 만남을 소중히 여기는 곳이에요.
+          혼자 조용히 예배드리고 싶은 분도, 따뜻한 교제를 원하는 분도 모두 환영이에요.
+        </p>
+        <p>
+          처음이라 긴장되시더라도 괜찮아요. 문을 열고 들어오시면 그때부터 이미 가족이에요.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 예배 안내 -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">예배 시간</h2>
+      <p class="section-intro">매주 이 시간에 만나요.</p>
+      <ul class="service-list">
+        {churchData.services.map((svc) => (
+          <li class="service-row">
+            <span class="service-name">{svc.name}</span>
+            <span class="service-time">{svc.time}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 처음 오시는 분 -->
+  <section class="section">
+    <div class="container">
+      <div class="first-visit-section">
+        <h2 class="section-title">처음 오시는 분께</h2>
+        <p>
+          오시는 길이 낯설 수 있어요.
+          주소, 주차 안내, 분위기까지 미리 확인하실 수 있도록 정리해 두었어요.
+        </p>
+        <a href="/directions#first-visit" class="cta-link">오시는 길 안내 보기 →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    padding: var(--space-2xl) 0;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-h3);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-alt {
+    background-color: rgba(212, 168, 67, 0.04);
+  }
+
+  .section-title {
+    font-size: var(--font-size-h2);
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-intro {
+    color: var(--color-text-light);
+    margin-bottom: var(--space-lg);
+  }
+
+  .pastor-greeting {
+    padding: var(--card-padding);
+  }
+
+  .greeting-heading {
+    font-size: var(--font-size-h2);
+    color: var(--color-primary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .greeting-body p {
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-md);
+  }
+
+  .greeting-sign {
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: var(--space-lg);
+  }
+
+  .story-content p {
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-md);
+  }
+
+  .service-list {
+    list-style: none;
+    max-width: 400px;
+  }
+
+  .service-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .service-row:last-child {
+    border-bottom: none;
+  }
+
+  .service-name {
+    font-weight: 600;
+  }
+
+  .service-time {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .first-visit-section p {
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-link {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: var(--font-size-base);
+  }
+
+  .cta-link:hover {
+    color: var(--color-accent);
+  }
+</style>

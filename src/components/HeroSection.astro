@@ -1,0 +1,95 @@
+---
+import churchData from "../data/church.json";
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const { title = `${churchData.church_name}에 오신 것을 환영합니다`, subtitle = "함께 예배하고, 함께 성장하는 공동체" } = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">{title}</h1>
+    <p class="hero-subtitle">{subtitle}</p>
+
+    <div class="hero-services">
+      <h2 class="services-heading">예배 안내</h2>
+      <ul class="services-list">
+        {churchData.services.map((service) => (
+          <li class="service-item">
+            <span class="service-name">{service.name}</span>
+            <span class="service-time">{service.time}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: var(--hero-min-height);
+    max-height: var(--hero-max-height);
+    background-color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-text-inverse);
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .hero-content {
+    max-width: 720px;
+    width: 100%;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-heading);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-h3);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-services {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .services-heading {
+    font-size: var(--font-size-h3);
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .services-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .service-item {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    font-size: var(--font-size-base);
+  }
+
+  .service-name {
+    font-weight: 600;
+  }
+
+  .service-time {
+    color: var(--color-accent);
+  }
+</style>

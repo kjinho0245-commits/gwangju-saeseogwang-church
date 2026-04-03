@@ -1,0 +1,118 @@
+---
+import churchData from "../data/church.json";
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="site-logo">{churchData.church_name}</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input sr-only" />
+    <label for="nav-toggle" class="nav-toggle-label touch-target" aria-label="메뉴 열기">
+      <span class="hamburger"></span>
+    </label>
+    <nav class="main-nav" aria-label="주요 탐색">
+      <ul>
+        <li><a href="/">홈</a></li>
+        <li><a href="/about">교회소개</a></li>
+        <li><a href="/sermons">설교</a></li>
+        <li><a href="/bulletin">주보</a></li>
+        <li><a href="/directions">오시는 길</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    height: var(--nav-height);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .site-logo {
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  .site-logo:hover { text-decoration: none; }
+
+  /* === Hamburger (CSS-only, 0 JavaScript) === */
+  .nav-toggle-input { display: none; }
+  .nav-toggle-label { display: none; cursor: pointer; }
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-primary);
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+  .hamburger::before { top: -7px; }
+  .hamburger::after { top: 7px; }
+
+  .main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: var(--space-lg);
+  }
+  .main-nav a {
+    font-weight: 600;
+    padding: var(--space-sm) 0;
+  }
+
+  @media (max-width: 767px) {
+    .site-header { height: var(--nav-height-mobile); }
+    .nav-toggle-label { display: flex; align-items: center; justify-content: center; }
+    .main-nav {
+      position: fixed;
+      top: var(--nav-height-mobile);
+      left: 0;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transform: translateY(-120%);
+      transition: transform 0.3s ease;
+      z-index: 49;
+    }
+    .nav-toggle-input:checked ~ .main-nav {
+      transform: translateY(0);
+    }
+    .nav-toggle-input:checked ~ .nav-toggle-label .hamburger {
+      background: transparent;
+    }
+    .nav-toggle-input:checked ~ .nav-toggle-label .hamburger::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+    .nav-toggle-input:checked ~ .nav-toggle-label .hamburger::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+    .main-nav ul {
+      flex-direction: column;
+      padding: var(--space-md) var(--space-lg);
+      gap: 0;
+    }
+    .main-nav a {
+      display: block;
+      line-height: 44px;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid #eee;
+    }
+  }
+</style>

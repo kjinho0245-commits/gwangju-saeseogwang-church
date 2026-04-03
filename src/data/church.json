@@ -1,0 +1,39 @@
+{
+  "church_name": "광주새서광교회",
+  "church_name_en": "Gwangju Saeseogwang Church",
+  "pastor_name": "김진호",
+  "pastor_title": "목사",
+  "address": "광주광역시 동구 백서로 189번 6-3",
+  "phone": "062-225-1002",
+  "services": [
+    {
+      "name": "주일예배",
+      "time": "오전 11:00"
+    },
+    {
+      "name": "주일오후예배",
+      "time": "오후 1:30"
+    },
+    {
+      "name": "수요기도회",
+      "time": "저녁 7:00"
+    },
+    {
+      "name": "새벽기도회",
+      "time": "토요일 새벽 6:00"
+    }
+  ],
+  "youtube_videos": [
+    {
+      "url": "https://youtu.be/owNpPfIsDu8",
+      "videoId": "owNpPfIsDu8"
+    }
+  ],
+  "welcome_message": "",
+  "kakao_channel_id": "",
+  "denomination": "",
+  "domain": "",
+  "first_visit_info": {},
+  "church_description": "",
+  "site_url": "https://gwangju-saeseogwang-church.pages.dev"
+}

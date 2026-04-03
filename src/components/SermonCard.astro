@@ -1,0 +1,85 @@
+---
+interface Props {
+  sermon: {
+    title: string;
+    date: string;
+    videoId: string;
+    scripture?: string;
+    summary?: string;
+  };
+}
+
+const { sermon } = Astro.props;
+const thumbnailUrl = `https://img.youtube.com/vi/${sermon.videoId}/mqdefault.jpg`;
+---
+
+<a href={`/sermons/${sermon.videoId}`} class="sermon-card card">
+  <div class="sermon-thumbnail">
+    <img src={thumbnailUrl} alt={sermon.title} loading="lazy" />
+  </div>
+  <div class="sermon-info">
+    <time class="sermon-date" datetime={sermon.date}>{sermon.date}</time>
+    <h3 class="sermon-title">{sermon.title}</h3>
+    {sermon.scripture && <p class="sermon-scripture">{sermon.scripture}</p>}
+    {sermon.summary && <p class="sermon-summary">{sermon.summary}</p>}
+  </div>
+</a>
+
+<style>
+  .sermon-card {
+    display: block;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .sermon-card:hover {
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .sermon-thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .sermon-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sermon-info {
+    padding: var(--card-padding);
+  }
+
+  .sermon-date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+
+  .sermon-title {
+    font-size: var(--font-size-h3);
+    color: var(--color-primary);
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-sm);
+  }
+
+  .sermon-scripture {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .sermon-summary {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: var(--line-height-base);
+    margin-bottom: 0;
+  }
+</style>

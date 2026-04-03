@@ -1,0 +1,55 @@
+---
+import churchData from "../data/church.json";
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-info">
+      <p class="footer-church-name">{churchData.church_name}</p>
+      <p>{churchData.address}</p>
+      <p><a href={`tel:${churchData.phone.replace(/-/g, "")}`}>{churchData.phone}</a></p>
+      <div class="footer-services">
+        {churchData.services.map((svc: {name: string; time: string}) => (
+          <span>{svc.name} {svc.time}</span>
+        ))}
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <a href="/privacy">개인정보처리방침</a>
+      <span>&copy; {new Date().getFullYear()} {churchData.church_name}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+    padding: var(--space-2xl) 0 var(--space-lg);
+  }
+  .footer-church-name {
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+  .footer-info p { margin-bottom: var(--space-xs); opacity: 0.9; }
+  .footer-info a { color: var(--color-text-inverse); }
+  .footer-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+  }
+  .footer-bottom {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+  }
+  .footer-bottom a { color: var(--color-text-inverse); }
+</style>

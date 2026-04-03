@@ -54,7 +54,7 @@ const latestVideo = churchData.youtube_videos?.[0] ?? null;
   <!-- Block 4: 이번 주 소식 — Resolution (confidence) -->
   <section class="section">
     <div class="container">
-      <StaleBanner stale={!latestBulletin} />
+      <StaleBanner />
       <h2 class="section-title">이번 주 소식</h2>
       <p class="section-desc">여러분의 한 주가 따뜻했길 바라며, 이번 주 소식을 전해드려요.</p>
       {latestBulletin ? (

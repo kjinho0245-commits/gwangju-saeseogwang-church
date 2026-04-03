@@ -1,12 +1,10 @@
 ---
-interface Props {
-  stale?: boolean;
-}
+import staleStatus from "../data/stale-status.json";
 
-const { stale = false } = Astro.props;
+const isStale = staleStatus.stale === true;
 ---
 
-{stale && (
+{isStale && (
   <div class="stale-banner" role="status">
     <p>더 많은 소식은 카카오톡 채널에서 만나보세요 💛</p>
   </div>

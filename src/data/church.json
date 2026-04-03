@@ -33,7 +33,11 @@
   "kakao_channel_id": "",
   "denomination": "",
   "domain": "",
-  "first_visit_info": {},
+  "first_visit_info": {
+    "parking": "교회 주변 주차 공간을 이용하실 수 있어요",
+    "dress_code": "편한 복장으로 오세요",
+    "atmosphere": "처음은 누구나 설레기도 하고 낯설기도 하지요. 저희가 따뜻하게 맞이할게요."
+  },
   "church_description": "",
   "site_url": "https://gwangju-saeseogwang-church.pages.dev"
 }

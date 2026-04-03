@@ -1,43 +1,31 @@
-# Astro Starter Kit: Minimal
+# 광주새서광교회 웹사이트
 
-```sh
-npm create astro@latest -- --template minimal
+광주새서광교회의 공식 웹사이트입니다.
+
+## 기술 스택
+
+- [Astro](https://astro.build) 5.x — 정적 사이트 생성기
+- [Cloudflare Pages](https://pages.cloudflare.com) — 무료 호스팅 + CDN
+- [GitHub Actions](https://github.com/features/actions) — 콘텐츠 자동화
+
+## 개발
+
+```bash
+npm install
+npm run dev       # 개발 서버 (localhost:4321)
+npm run build     # 프로덕션 빌드
+npm run preview   # 빌드 미리보기
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 콘텐츠 관리
 
-## 🚀 Project Structure
+설교와 주보는 GitHub Issues를 통해 추가할 수 있습니다.
+자세한 방법은 [CONTENT-GUIDE.md](CONTENT-GUIDE.md)를 참조하세요.
 
-Inside of your Astro project, you'll see the following folders and files:
+## 라이선스
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+이 웹사이트는 광주새서광교회를 위해 제작되었습니다.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Built with Digital Narthex workflow engine.

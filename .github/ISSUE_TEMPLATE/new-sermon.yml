@@ -1,0 +1,28 @@
+name: 새 설교 추가
+description: 새로운 설교 영상을 웹사이트에 추가합니다
+title: "[설교] "
+labels: ["new-sermon"]
+body:
+  - type: input
+    id: youtube-url
+    attributes:
+      label: YouTube 영상 URL
+      description: 설교 영상의 YouTube 링크를 붙여넣으세요
+      placeholder: "https://youtu.be/..."
+    validations:
+      required: true
+  - type: input
+    id: scripture
+    attributes:
+      label: 성경구절
+      description: "예: 요한복음 3:16"
+      placeholder: "성경구절: "
+    validations:
+      required: false
+  - type: textarea
+    id: summary
+    attributes:
+      label: 설교 요약 (선택)
+      description: 간단한 설교 요약을 작성해주세요
+    validations:
+      required: false

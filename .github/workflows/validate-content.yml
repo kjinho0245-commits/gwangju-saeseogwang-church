@@ -1,0 +1,23 @@
+name: Validate Content
+
+on:
+  push:
+    paths:
+      - 'src/content/**'
+  pull_request:
+    paths:
+      - 'src/content/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - name: Build check
+        run: npm run build
+      - name: Type check
+        run: npx astro check

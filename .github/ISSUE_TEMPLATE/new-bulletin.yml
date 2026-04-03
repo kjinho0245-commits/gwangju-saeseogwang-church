@@ -1,0 +1,16 @@
+name: 새 주보 추가
+description: 이번 주 주보를 웹사이트에 추가합니다
+title: "[주보] "
+labels: ["new-bulletin"]
+body:
+  - type: textarea
+    id: content
+    attributes:
+      label: 주보 내용
+      description: 이번 주 주보 내용을 작성해주세요
+      placeholder: |
+        ## 이번 주 소식
+        - 공지사항 1
+        - 공지사항 2
+    validations:
+      required: true

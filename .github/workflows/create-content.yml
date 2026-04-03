@@ -1,0 +1,83 @@
+name: Create Content from Issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  create-content:
+    if: contains(github.event.issue.labels.*.name, 'new-sermon') || contains(github.event.issue.labels.*.name, 'new-bulletin')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Parse issue and create content
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body;
+            const labels = context.payload.issue.labels.map(l => l.name);
+            const fs = require('fs');
+            const date = new Date().toISOString().split('T')[0];
+            
+            if (labels.includes('new-sermon')) {
+              const title = context.payload.issue.title;
+              const videoMatch = body.match(/youtu\.?be[\/\.].*?([A-Za-z0-9_-]{11})/);
+              const videoId = videoMatch ? videoMatch[1] : '';
+              const scripture = (body.match(/성경구절:\s*(.+)/i) || ['', ''])[1].trim();
+              
+              const content = `---
+title: "${title}"
+date: "${date}"
+videoId: "${videoId}"
+scripture: "${scripture}"
+pastor: "김진호 목사"
+---
+
+${title}
+`;
+              const filename = `src/content/sermons/${date}-sermon.md`;
+              fs.writeFileSync(filename, content);
+              console.log(`Created ${filename}`);
+            }
+            
+            if (labels.includes('new-bulletin')) {
+              const title = context.payload.issue.title || `주보 - ${date}`;
+              const content = `---
+title: "${title}"
+date: "${date}"
+excerpt: "${context.payload.issue.title}"
+---
+
+${body}
+`;
+              const filename = `src/content/bulletins/${date}-bulletin.md`;
+              fs.writeFileSync(filename, content);
+              console.log(`Created ${filename}`);
+            }
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Add content from issue #${{ github.event.issue.number }}"
+          git push
+      - name: Close issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ 콘텐츠가 추가되었습니다! 빌드가 자동으로 시작됩니다.'
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, state: 'closed'
+            });

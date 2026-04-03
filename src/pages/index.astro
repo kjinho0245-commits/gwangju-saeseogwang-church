@@ -31,6 +31,7 @@ const latestVideo = churchData.youtube_videos?.[0] ?? null;
   <section class="section">
     <div class="container">
       <h2 class="section-title">이번 주의 말씀</h2>
+      <p class="section-desc">여러분과 함께 나누고 싶은 이번 주 말씀이에요.</p>
       <ScriptureHighlight
         text="여호와를 기뻐하라 그가 네 마음의 소원을 네게 이루어 주시리로다"
         reference="시편 37:4"
@@ -55,6 +56,7 @@ const latestVideo = churchData.youtube_videos?.[0] ?? null;
     <div class="container">
       <StaleBanner stale={!latestBulletin} />
       <h2 class="section-title">이번 주 소식</h2>
+      <p class="section-desc">여러분의 한 주가 따뜻했길 바라며, 이번 주 소식을 전해드려요.</p>
       {latestBulletin ? (
         <div class="bulletin-preview card">
           <time class="bulletin-date" datetime={latestBulletin.data.date}>{latestBulletin.data.date}</time>

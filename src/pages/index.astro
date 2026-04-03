@@ -74,6 +74,7 @@ const latestVideo = churchData.youtube_videos?.[0] ?? null;
   <section class="section">
     <div class="container">
       <h2 class="section-title">최근 설교</h2>
+      <p class="section-desc">지난 주일 {churchData.pastor_name} {churchData.pastor_title}이 전해주신 말씀이에요.</p>
       {latestSermon ? (
         <div class="sermon-grid">
           <SermonCard sermon={{

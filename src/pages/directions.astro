@@ -88,6 +88,28 @@ import churchData from "../data/church.json";
       </div>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">지도</h2>
+      <div class="map-embed">
+        <iframe
+          src={`https://www.google.com/maps?q=${encodeURIComponent(churchData.address)}&output=embed`}
+          width="100%"
+          height="400"
+          style="border:0; border-radius: var(--radius-card);"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="광주새서광교회 위치"
+        ></iframe>
+      </div>
+      <div class="map-links">
+        <a href={`https://map.naver.com/v5/search/${encodeURIComponent(churchData.address)}`} target="_blank" rel="noopener noreferrer" class="btn btn-primary">네이버 지도</a>
+        <a href={`https://map.kakao.com/?q=${encodeURIComponent(churchData.address)}`} target="_blank" rel="noopener noreferrer" class="btn btn-primary">카카오맵</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -117,6 +139,17 @@ import churchData from "../data/church.json";
 
   .section-alt {
     background-color: rgba(212, 168, 67, 0.04);
+    scroll-margin-top: calc(var(--nav-height) + 16px);
+  }
+
+  .map-embed {
+    margin-bottom: var(--space-lg);
+  }
+
+  .map-links {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
   }
 
   .section-title {

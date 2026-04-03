@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gwangju-saeseogwang-church.pages.dev/sitemap-index.xml

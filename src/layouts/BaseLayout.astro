@@ -57,6 +57,9 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 
     <!-- Pretendard — system font fallback (no external download needed) -->
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Cloudflare Web Analytics (cookie-free) -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "PLACEHOLDER"}' is:inline></script>
   </head>
   <body>
     <header class="site-header">
